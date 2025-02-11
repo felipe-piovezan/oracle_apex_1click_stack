@@ -35,49 +35,6 @@ endspin() {
    printf "\r%s\n" "$@"
 }
 
-##### Prompt for required variables #####
-if [ -z "$PIN" ]
-then
-    while
-        echo -n "PIN (required): "
-        read PIN
-        [[ -z $PIN ]]
-    do true; done
-fi
-
-if [ -z "$CONTAINER_NAME" ]
-then
-    while
-        echo -n "Base name (required): "
-        read CONTAINER_NAME
-        [[ -z $CONTAINER_NAME ]]
-    do true; done
-fi
-
-if [ -z "$ORDS_PORT" ]
-then
-    ORDS_PORT=8181;
-fi
-
-
-#if [ -z "$APEX_ADMIN_EMAIL" ]
-#then
-#    while
-#        echo -n "Enter an email address for your APEX administrator (required): "
-#        read APEX_ADMIN_EMAIL
-#        [[ -z $APEX_ADMIN_EMAIL ]]
-#    do true; done
-#fi
-
-if [ -z "$VERSION" ]
-then
-    while
-        echo -n "Enter the database version [free:23.6.0.0 , enterprise:19.3.0.0, enterprise:19.19.0.0 (arm) ]: "
-        read VERSION
-        [[ -z $VERSION ]]
-    do true; done
-fi
-
 ##### Creating directories #####
 mkdir -p $CONTAINER_NAME && cd $CONTAINER_NAME && mkdir -p data startup setup secrets ords_config custom_scripts && cd .. && chmod -R 777 $CONTAINER_NAME && cd $CONTAINER_NAME
 
@@ -98,14 +55,6 @@ echo "Your database container name is: ${CONTAINER_NAME}-db"
 echo "Your ords container name is: ${CONTAINER_NAME}-ords"
 echo "Your password for the database and APEX internal workspace is: $ORACLE_PWD"
 echo ""
-
-
-while
-    echo "We are now ready to run the your containers."
-    echo -n "Type \"Y|y\" to continue or CTRL-C to exit: "
-    read CONTINUE
-    [[ ! $CONTINUE =~ (Y|y) ]]
-do true; done
 
 ##### Defining oracle version ####
 if [ $VERSION = "free:23.6.0.0" ]
