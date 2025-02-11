@@ -4,6 +4,7 @@
 CONTAINER_NAME=$1
 PIN=$2
 VERSION=$3
+ORDS_PORT=$4
 
 APEX_ADMIN_EMAIL=apex@apex.com
 
@@ -52,6 +53,12 @@ then
         [[ -z $CONTAINER_NAME ]]
     do true; done
 fi
+
+if [ -z "$ORDS_PORT" ]
+then
+    ORDS_PORT=8181;
+fi
+
 
 #if [ -z "$APEX_ADMIN_EMAIL" ]
 #then
@@ -303,7 +310,7 @@ services:
       - ./ords_config/:/etc/ords/config/
       - ./custom_scripts/:/ords-entrypoint.d/
     ports:
-      - 8181:8181
+      - ${ORDS_PORT}:8181
     depends_on:
       oracle-db:
         condition: service_healthy
@@ -336,7 +343,7 @@ echo ""
 until false
 do
     spin
-    if curl -s --head --request GET http://localhost:8181/ords | grep -E "302 Found|301 Moved Permanently" > /dev/null; then
+    if curl -s --head --request GET http://localhost:${ORDS_PORT}/ords | grep -E "302 Found|301 Moved Permanently" > /dev/null; then
         break
     fi
     sleep 1;
@@ -359,13 +366,13 @@ echo ""
 echo ""
 echo "##################################################"
 echo "You now can accesss APEX admin workspace:"
-echo "http://localhost:8181/ords"
+echo "http://localhost:${ORDS_PORT}/ords"
 echo "- Workspace: internal"
 echo "- User:      ADMIN"
 echo "- Password:  ${ORACLE_PWD}"
 echo ""
 echo "SQL Developer WEB:"
-echo "http://localhost:8181/ords/sql-developer"
+echo "http://localhost:${ORDS_PORT}/ords/sql-developer"
 echo "- User:      PDBADMIN"
 echo "- Password:  ${ORACLE_PWD}"
 echo ""
