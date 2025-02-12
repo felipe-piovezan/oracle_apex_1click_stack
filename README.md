@@ -2,6 +2,12 @@
 ## Introduction
 Script to start a docker based Oracle APEX stack. You will have a full functional developer enviroment, with HTTP wallet configured on Oracle APEX.
 
+This will spin 2 containers
+ - Oracle Database container, named <base-name>-db
+ - ORDS Developer container, named <base-name>-ords
+
+Do not use this configuration on production.
+
 ## Prerequisites
 You need docker and docker compose installed.
 If you want to use an enterprise database version, you need to login and accept Oracle terms on Oracle Container Registry website (https://container-registry.oracle.com/ords/f?p=113:10::::::) and do a docker login on the machine.
