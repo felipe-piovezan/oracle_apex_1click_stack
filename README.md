@@ -10,10 +10,26 @@ This method is tested on Linux based system (Arch x86)
 
 
 ## Usage
+
+### Single step
+For convenience, there is a one line option to install the default.
+ - Container names:
+   - apex-db
+   - apex-ords
+ - PIN 1234
+ - Database version: free:23.6.0.0
+ - PORT 8181
+ 
+```bash
+curl -fsSL https://raw.githubusercontent.com/felipe-piovezan/oracle_apex_1click_stack/refs/heads/main/quickstart_default.sh | bash
+```
+
+
+### Manual configuration
 Download quickstart.sh script.
 Make script executable:
 
-``` bash
+```bash
 chmod +x ./quickstart.sh
 ```
 
@@ -26,12 +42,12 @@ Execute the script passing:
 
 Running the command:
 
-``` bash
+```bash
 ./quickstart.sh apex 1234 free:23.6.0.0
 ```
 
 Expected output on terminal:
-``` bash
+```bash
 ############################## Important Information ##############################
 Database version: free:23.6.0.0
 Your database container name is: apex-db
@@ -106,15 +122,9 @@ http://localhost:8181/ords
 - User:      ADMIN
 - Password:  LmsQaV_T_QLlAwluPB8HJ8Z24g__
 
-SQL Developer WEB:
-http://localhost:8181/ords/sql-developer
-- User:      PDBADMIN
-- Password:  LmsQaV_T_QLlAwluPB8HJ8Z24g__
-
 Oracle Connection:
 - host:         localhost
 - port:         1521
 - service name: FREEPDB1
 ##################################################
 ```
-
