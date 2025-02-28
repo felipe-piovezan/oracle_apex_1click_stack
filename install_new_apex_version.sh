@@ -81,7 +81,7 @@ BEGIN
     APEX_UTIL.create_user(
         p_user_name       => 'ADMIN',
         p_email_address   => 'me@example.com',
-        p_web_password    => '${$ORACLE_PWD}',
+        p_web_password    => '${ORACLE_PWD}',
         p_developer_privs => 'ADMIN' );
         
     APEX_UTIL.set_security_group_id( null );
