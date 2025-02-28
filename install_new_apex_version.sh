@@ -81,7 +81,7 @@ BEGIN
     APEX_UTIL.create_user(
         p_user_name       => 'ADMIN',
         p_email_address   => 'me@example.com',
-        p_web_password    => 'OrclAPEX1999!',
+        p_web_password    => '${$ORACLE_PWD}',
         p_developer_privs => 'ADMIN' );
         
     APEX_UTIL.set_security_group_id( null );
@@ -126,3 +126,8 @@ EOF
 
 docker exec -t ${CONTAINER_NAME}-ords bash /ords-entrypoint.d/99_install_new_APEX_version.sh
 docker container restart ${CONTAINER_NAME}-ords
+
+echo "APEX installation completed successfully!"
+echo "APEX URL: http://localhost:8080/ords/${APEX_POOL_NAME}"
+echo "Username: ADMIN"
+echo "Password: ${ORACLE_PWD}"
